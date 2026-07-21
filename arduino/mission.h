@@ -5,9 +5,8 @@
 // Used to initialize sensors, LEDs, communication, etc.
 void missionSetup();
 
-// Called repeatedly from loop().
-// This controls the mission sequence:
-// Wait for IR → Arm → Takeoff → Hover → Land
+// Called repeatedly from loop(). Controls the mission sequence:
+// select height by IR -> start -> arm -> take off -> hover -> land -> disarm.
 void missionUpdate();
 
 #endif
