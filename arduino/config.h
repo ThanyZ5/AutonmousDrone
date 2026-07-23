@@ -13,8 +13,9 @@
  *
  * Before the first real flight, set IR_DEBUG to true, disconnect the F405
  * serial wires, open the Arduino Serial Monitor at 115200 baud, and press
- * every remote button. Put the reported command values into the IR_COMMAND_*
- * settings below. Set IR_DEBUG back to false before reconnecting the F405.
+ * every remote button. This sketch is set to match full raw hexadecimal codes,
+ * so put each printed raw=0x... value into the IR_COMMAND_* settings below.
+ * Set IR_DEBUG back to false before reconnecting the F405.
  */
 namespace config {
 
@@ -26,22 +27,22 @@ const uint8_t GREEN_LED_PIN = 7;         // Through a 220 ohm resistor to LED an
 // Do not leave this true while D0/D1 are connected to the F405.
 const bool IR_DEBUG = false;
 
-// Common 21-button NEC remote command values. Replace these if your IR test
-// prints different values. Button 0 selects 10 ft; PLAY starts; POWER lands.
-const uint16_t IR_COMMAND_0 = 0x16;
-const uint16_t IR_COMMAND_1 = 0x0C;
-const uint16_t IR_COMMAND_2 = 0x18;
-const uint16_t IR_COMMAND_3 = 0x5E;
-const uint16_t IR_COMMAND_4 = 0x08;
-const uint16_t IR_COMMAND_5 = 0x1C;
-const uint16_t IR_COMMAND_6 = 0x5A;
-const uint16_t IR_COMMAND_7 = 0x42;
-const uint16_t IR_COMMAND_8 = 0x52;
-const uint16_t IR_COMMAND_9 = 0x4A;
-const uint16_t IR_COMMAND_START = 0x44; // PLAY/PAUSE.
-const uint16_t IR_COMMAND_LAND = 0x45;  // POWER.
+// Match the full raw hexadecimal code printed by IR_DEBUG. Replace every
+// value below with a code from the new remote. Button 0 selects 10 ft.
+const uint32_t IR_COMMAND_0 = 0x00000016UL;
+const uint32_t IR_COMMAND_1 = 0x0000000CUL;
+const uint32_t IR_COMMAND_2 = 0x00000018UL;
+const uint32_t IR_COMMAND_3 = 0x0000005EUL;
+const uint32_t IR_COMMAND_4 = 0x00000008UL;
+const uint32_t IR_COMMAND_5 = 0x0000001CUL;
+const uint32_t IR_COMMAND_6 = 0x0000005AUL;
+const uint32_t IR_COMMAND_7 = 0x00000042UL;
+const uint32_t IR_COMMAND_8 = 0x00000052UL;
+const uint32_t IR_COMMAND_9 = 0x0000004AUL;
+const uint32_t IR_COMMAND_START = 0x00000044UL;
+const uint32_t IR_COMMAND_LAND = 0x00000045UL;
 
-// MSP serial connection: Uno D1/TX -> (level shifted) F405 R3, and F405 T3
+// MSP serial connection: Uno D1/TX -> (level shifted) F405 R1, and F405 T1
 // -> Uno D0/RX. The F405 port must be set to MSP at this baud rate in INAV.
 const uint32_t FC_SERIAL_BAUD = 115200UL;
 const uint16_t FC_ALTITUDE_REQUEST_MS = 100; // 10 Hz altitude updates.
