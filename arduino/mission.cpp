@@ -53,18 +53,18 @@ void enterState(MissionState nextState)
     ledSetGreen(nextState == TAKEOFF || nextState == HOVER);
 }
 
-int8_t commandToHeight(uint16_t command)
+int8_t commandToHeight(uint32_t code)
 {
-    if (command == config::IR_COMMAND_1) return 1;
-    if (command == config::IR_COMMAND_2) return 2;
-    if (command == config::IR_COMMAND_3) return 3;
-    if (command == config::IR_COMMAND_4) return 4;
-    if (command == config::IR_COMMAND_5) return 5;
-    if (command == config::IR_COMMAND_6) return 6;
-    if (command == config::IR_COMMAND_7) return 7;
-    if (command == config::IR_COMMAND_8) return 8;
-    if (command == config::IR_COMMAND_9) return 9;
-    if (command == config::IR_COMMAND_0) return 10;
+    if (code == config::IR_COMMAND_1) return 1;
+    if (code == config::IR_COMMAND_2) return 2;
+    if (code == config::IR_COMMAND_3) return 3;
+    if (code == config::IR_COMMAND_4) return 4;
+    if (code == config::IR_COMMAND_5) return 5;
+    if (code == config::IR_COMMAND_6) return 6;
+    if (code == config::IR_COMMAND_7) return 7;
+    if (code == config::IR_COMMAND_8) return 8;
+    if (code == config::IR_COMMAND_9) return 9;
+    if (code == config::IR_COMMAND_0) return 10;
     return 0;
 }
 
@@ -110,15 +110,16 @@ void processIr()
         return;
     }
 
-    const int8_t chosenHeight = commandToHeight(event.command);
+    const uint32_t code = event.rawCode;
+    const int8_t chosenHeight = commandToHeight(code);
     if (chosenHeight != 0 && state == IDLE) {
         selectedHeightFeet = static_cast<uint8_t>(chosenHeight);
         return;
     }
 
-    if (event.command == config::IR_COMMAND_START && state == IDLE) {
+    if (code == config::IR_COMMAND_START && state == IDLE) {
         beginMission();
-    } else if (event.command == config::IR_COMMAND_LAND) {
+    } else if (code == config::IR_COMMAND_LAND) {
         land();
     }
 }
