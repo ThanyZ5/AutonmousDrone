@@ -22,6 +22,7 @@ bool irReadEvent(IrEvent &event)
 
     event.address = IrReceiver.decodedIRData.address;
     event.command = IrReceiver.decodedIRData.command;
+    event.rawCode = static_cast<IrRawCode>(IrReceiver.decodedIRData.decodedRawData);
     event.isRepeat = (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_IS_REPEAT) != 0;
 
     if (config::IR_DEBUG) {
@@ -29,6 +30,8 @@ bool irReadEvent(IrEvent &event)
         Serial.print(event.address, HEX);
         Serial.print(F(" command=0x"));
         Serial.print(event.command, HEX);
+        Serial.print(F(" raw=0x"));
+        Serial.print(event.rawCode, HEX);
         Serial.print(F(" repeat="));
         Serial.println(event.isRepeat ? F("yes") : F("no"));
     }
